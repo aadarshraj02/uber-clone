@@ -14,7 +14,7 @@ const registerUser = async (req, res, next) => {
   try {
     const { fullname, email, password } = req.body;
 
-    const hashedPassword = await userModel.hashedPassword(password);
+    const hashedPassword = await userModel.hashPassword(password);
 
     const user = await userService.createUser({
       firstName: fullname.firstName,
