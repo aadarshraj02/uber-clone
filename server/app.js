@@ -24,6 +24,6 @@ app.use(
 app.use(cookieParser());
 
 app.use("/api/users", userRoutes);
-app.use("/api/captain", userRoutes);
+app.use("/api/captains", captainRoutes);
 
 module.exports = app;
