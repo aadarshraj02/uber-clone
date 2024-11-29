@@ -47,4 +47,10 @@ router.post(
   captainController.loginCaptain
 );
 
+router.get(
+  "/profile",
+  authMiddleware.authUser,
+  captainController.getCaptainProfile
+);
+
 module.exports = router;
