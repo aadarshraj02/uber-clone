@@ -87,3 +87,5 @@ module.exports.getCaptainProfile = async (req, res) => {
     });
   }
 };
+
+module.exports.logoutCaptain = async (req, res) => {};
