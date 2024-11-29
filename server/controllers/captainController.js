@@ -75,3 +75,15 @@ module.exports.loginCaptain = async (req, res) => {
     });
   }
 };
+
+module.exports.getCaptainProfile = async (req, res) => {
+  try {
+    res.status(200).json({
+      captain: req.captain,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
