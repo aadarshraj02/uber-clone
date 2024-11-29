@@ -1,25 +1,25 @@
 const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const captainSchema = new mongoose.Schema({
   fullname: {
     firstName: {
       type: String,
       required: true,
-      minLength: [3, "First Name must be at least of 3 characters"],
+      minlength: [3, "First name must be at least 3 characters long"],
     },
     lastName: {
       type: String,
-      required: true,
-      minLength: [3, "Last Name must be at least of 3 characters"],
+      minlength: [3, "Last name must be at least 3 characters long"],
     },
   },
   email: {
     type: String,
     required: true,
     unique: true,
-    minLength: [5, "Email must be at least of 5 characters"],
+    lowercase: true,
+    match: [/^\S+@\S+\.\S+$/, "Please enter a valid email"],
   },
   password: {
     type: String,
@@ -29,21 +29,23 @@ const captainSchema = new mongoose.Schema({
   socketId: {
     type: String,
   },
+
   status: {
     type: String,
     enum: ["active", "inactive"],
     default: "inactive",
   },
+
   vehicle: {
     color: {
       type: String,
       required: true,
-      minLength: [3, "Color must be at least of 3 characters"],
+      minlength: [3, "Color must be at least 3 characters long"],
     },
     plate: {
       type: String,
       required: true,
-      minLength: [3, "Plate be at least of 3 characters"],
+      minlength: [3, "Plate must be at least 3 characters long"],
     },
     capacity: {
       type: Number,
@@ -56,8 +58,9 @@ const captainSchema = new mongoose.Schema({
       enum: ["car", "motorcycle", "auto"],
     },
   },
+
   location: {
-    lat: {
+    ltd: {
       type: Number,
     },
     lng: {
@@ -72,7 +75,9 @@ captainSchema.methods.generateAuthToken = function () {
       _id: this._id,
     },
     process.env.JWT_SECRET,
-    { expiresIn: "1h" }
+    {
+      expiresIn: "1h",
+    }
   );
   return token;
 };
@@ -86,4 +91,5 @@ captainSchema.statics.hashPassword = async function (password) {
 };
 
 const captainModel = mongoose.model("captain", captainSchema);
+
 module.exports = captainModel;
