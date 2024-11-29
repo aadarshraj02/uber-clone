@@ -12,13 +12,13 @@ const registerUser = async (req, res, next) => {
   }
 
   try {
-    const { firstName, lastName, email, password } = req.body;
+    const { fullname, email, password } = req.body;
 
     const hashedPassword = await userModel.hashedPassword(password);
 
     const user = await userService.createUser({
-      firstName,
-      lastName,
+      firstName: fullname.firstName,
+      lastName: fullname.lastName,
       email,
       password: hashedPassword,
     });
