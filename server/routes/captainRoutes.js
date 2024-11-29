@@ -49,7 +49,7 @@ router.post(
 
 router.get(
   "/profile",
-  authMiddleware.authUser,
+  authMiddleware.authCaptain,
   captainController.getCaptainProfile
 );
 
