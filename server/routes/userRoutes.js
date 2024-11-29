@@ -18,7 +18,7 @@ router.post(
       })
       .withMessage("Password must be of 5 character long"),
   ],
-  userController
+  userController.registerUser
 );
 
 module.exports = router;
