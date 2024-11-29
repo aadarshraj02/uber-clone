@@ -9,8 +9,12 @@ const blacklistTokenSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-    expires: 86400,
+    expires: 86400, // Token will expire after 86400 seconds (1 day)
   },
 });
 
-module.exports = mongoose.model("BlacklistToken", blacklistTokenSchema);
+const BlacklistToken =
+  mongoose.models.BlacklistToken ||
+  mongoose.model("BlacklistToken", blacklistTokenSchema);
+
+module.exports = BlacklistToken;
