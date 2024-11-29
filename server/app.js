@@ -9,10 +9,12 @@ dotenv.config();
 const cors = require("cors");
 
 const app = express();
+
 app.use(cors());
 connectToDB();
 
 app.use(express.json());
+
 app.use(
   express.urlencoded({
     extended: true,
@@ -20,6 +22,7 @@ app.use(
 );
 
 app.use(cookieParser());
+
 app.use("/api/users", userRoutes);
 app.use("/api/captain", userRoutes);
 
