@@ -58,6 +58,9 @@ const loginUser = async (req, res) => {
         message: "Invalid email or password",
       });
     const token = user.generateAuthToken();
+
+    res.cookie("token", token);
+
     return res.status(200).json({ token, user });
   } catch (error) {
     return res.status(500).json({
@@ -66,7 +69,12 @@ const loginUser = async (req, res) => {
   }
 };
 
+const getUserProfile = async (req, res) => {
+  res.status(200).json(req.user);
+};
+
 module.exports = {
   registerUser,
   loginUser,
+  getUserProfile,
 };
