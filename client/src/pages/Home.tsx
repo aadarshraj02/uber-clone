@@ -1,3 +1,4 @@
+import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { FaArrowRight } from "react-icons/fa";
 
@@ -36,6 +37,7 @@ const Home = (): JSX.Element => {
           <img src="../../public/earner-illustra.jpg" alt="" className="w-full" />
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };
