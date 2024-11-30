@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { FaArrowRight } from "react-icons/fa";
@@ -12,9 +13,9 @@ const Home = (): JSX.Element => {
             Go <br /> Anywhere with Uber
           </h2>
           <div className="w-full flex items-center justify-center lg:mt-16 mt-8">
-            <button className="text-white bg-black lg:w-1/2 w-full flex items-center justify-center gap-2 py-3 rounded-full hover:opacity-70 transition-opacity ease-linear duration-300 ">
+            <Link to="/signup" className="text-white bg-black lg:w-1/2 w-full flex items-center justify-center gap-2 py-3 rounded-full hover:opacity-70 transition-opacity ease-linear duration-300 ">
               Continue <FaArrowRight />
-            </button>
+            </Link>
           </div>
         </div>
         <div className="order-1 lg:order-2 w-full lg:w-1/2">
@@ -28,9 +29,9 @@ const Home = (): JSX.Element => {
           </h2>
           <p className="lg:my-10 my-4 lg:w-3/4 w-full text-sm">Make money on your schedule with deliveries or rides—or both. You can use your own car or choose a rental through Uber.</p>
           <div className="w-full flex items-center justify-center lg:mt-16 my-8">
-            <button className="text-white bg-black lg:w-1/2 w-full flex items-center justify-center gap-2 py-3 rounded-full hover:opacity-70 transition-opacity ease-linear duration-300">
+            <Link to="/captain-signup" className="text-white bg-black lg:w-1/2 w-full flex items-center justify-center gap-2 py-3 rounded-full hover:opacity-70 transition-opacity ease-linear duration-300">
               Get Started <FaArrowRight />
-            </button>
+            </Link>
           </div>
         </div>
         <div className="order-1 lg:order-2 w-full lg:w-1/2">
