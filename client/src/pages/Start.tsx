@@ -3,7 +3,7 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { FaArrowRight } from "react-icons/fa";
 
-const Home = (): JSX.Element => {
+const Start = (): JSX.Element => {
   return (
     <div>
       <Navbar />
@@ -43,4 +43,4 @@ const Home = (): JSX.Element => {
   );
 };
 
-export default Home;
+export default Start;
