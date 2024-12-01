@@ -6,6 +6,18 @@ const Login = (): JSX.Element => {
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [userData, setUserData] = useState({});
+
+  const submitHandler = (e: any) => {
+    e.preventDefault();
+    setUserData({
+      email: email,
+      password: password,
+    });
+    console.log(userData);
+    setEmail("");
+    setPassword("");
+  };
 
   return (
     <div className="h-screen flex flex-col">
@@ -16,7 +28,10 @@ const Login = (): JSX.Element => {
       </div>
       <div className="flex flex-grow sm:items-center mt-5 sm:mt-0 justify-center">
         <div className="w-full max-w-md">
-          <form className="rounded-md px-8 space-y-6" action="">
+          <form
+            className="rounded-md px-8 space-y-6"
+            onSubmit={(e) => submitHandler(e)}
+          >
             <div>
               <label htmlFor="email" className="block text-xl mb-2">
                 What's your email?
