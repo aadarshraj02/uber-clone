@@ -16,8 +16,7 @@ const useSignup = () => {
 
     try {
       const response = await axios.post<SignupResponse>(
-        `
-        http://localhost:5000/api/users/register`,
+        `${import.meta.env.VITE_BASE_URL}/api/users/register`,
         newUser
       );
 
