@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = (): JSX.Element => {
   const [email, setEmail] = useState("");
@@ -8,6 +8,8 @@ const Signup = (): JSX.Element => {
   const [lastName, setLastName] = useState("");
   const [userData, setUserData] = useState({});
   const [focusedField, setFocusedField] = useState("");
+
+  const navigate = useNavigate();
 
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,8 +21,8 @@ const Signup = (): JSX.Element => {
       email: email,
       password: password,
     };
-    setUserData(newUser);
-    console.log(userData)
+    // setUserData(newUser);
+    // console.log(userData)
     setFirstName("");
     setLastName("");
     setEmail("");
