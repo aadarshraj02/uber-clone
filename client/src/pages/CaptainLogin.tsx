@@ -6,15 +6,15 @@ const CaptainLogin = (): JSX.Element => {
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userData, setUserData] = useState({});
+  const [captainData, setCaptainData] = useState({});
 
   const submitHandler = (e: any) => {
     e.preventDefault();
-    setUserData({
+    setCaptainData({
       email: email,
       password: password,
     });
-    console.log(userData);
+    console.log(captainData);
     setEmail("");
     setPassword("");
   };
