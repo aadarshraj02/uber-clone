@@ -1,32 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { UserDataContext } from "../context/UserContext";
+import useSignup from "../hooks/useUser";
 
 const Signup = (): JSX.Element => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [userData, setUserData] = useState({});
-  const [focusedField, setFocusedField] = useState("");
+  const { signup, loading, error } = useSignup();
 
   const navigate = useNavigate();
+  const { setUser } = useContext(UserDataContext);
 
-  const submitHandler = (e: React.FormEvent) => {
+  const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
+
     const newUser = {
       fullname: {
-        firstName: firstName,
-        lastName: lastName,
+        firstName,
+        lastName,
       },
-      email: email,
-      password: password,
+      email,
+      password,
     };
-    // setUserData(newUser);
-    // console.log(userData)
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setPassword("");
+
+    try {
+      const data = await signup(newUser);
+      setUser(data.user);
+      localStorage.setItem("token", data.token);
+      navigate("/home");
+
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPassword("");
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -50,11 +61,7 @@ const Signup = (): JSX.Element => {
                   value={firstName}
                   required
                   placeholder="First Name"
-                  className={`w-full px-4 py-2 rounded-md border transition-colors duration-300 focus:outline-none ${
-                    focusedField === "firstName" ? "bg-white" : "bg-zinc-200"
-                  }`}
-                  onFocus={() => setFocusedField("firstName")}
-                  onBlur={() => setFocusedField("")}
+                  className="w-full px-4 py-2 rounded-md border bg-zinc-200"
                   onChange={(e) => setFirstName(e.target.value)}
                 />
                 <input
@@ -63,11 +70,7 @@ const Signup = (): JSX.Element => {
                   value={lastName}
                   required
                   placeholder="Last Name"
-                  className={`w-full px-4 py-2 rounded-md border transition-colors duration-300 focus:outline-none ${
-                    focusedField === "lastName" ? "bg-white" : "bg-zinc-200"
-                  }`}
-                  onFocus={() => setFocusedField("lastName")}
-                  onBlur={() => setFocusedField("")}
+                  className="w-full px-4 py-2 rounded-md border bg-zinc-200"
                   onChange={(e) => setLastName(e.target.value)}
                 />
               </div>
@@ -82,11 +85,7 @@ const Signup = (): JSX.Element => {
                 value={email}
                 required
                 placeholder="email@example.com"
-                className={`w-full px-4 py-2 rounded-md border transition-colors duration-300 focus:outline-none ${
-                  focusedField === "email" ? "bg-white" : "bg-zinc-200"
-                }`}
-                onFocus={() => setFocusedField("email")}
-                onBlur={() => setFocusedField("")}
+                className="w-full px-4 py-2 rounded-md border bg-zinc-200"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
@@ -100,18 +99,18 @@ const Signup = (): JSX.Element => {
                 value={password}
                 required
                 placeholder="Your password"
-                className={`w-full px-4 py-2 rounded-md border transition-colors duration-300 focus:outline-none ${
-                  focusedField === "password" ? "bg-white" : "bg-zinc-200"
-                }`}
-                onFocus={() => setFocusedField("password")}
-                onBlur={() => setFocusedField("")}
+                className="w-full px-4 py-2 rounded-md border bg-zinc-200"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <button className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-800 transition-colors">
-              Sign Up
+            <button
+              className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-800 transition-colors"
+              disabled={loading}
+            >
+              {loading ? "Signing Up..." : "Sign Up"}
             </button>
           </form>
+          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
           <div className="rounded-md px-8 space-y-4">
             <div className="sm:text-right text-center">
               <Link
