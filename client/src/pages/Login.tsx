@@ -12,8 +12,8 @@ const Login = (): JSX.Element => {
           Uber
         </Link>
       </div>
-      <div className="flex flex-grow sm:items-center justify-center ">
-        <form className=" rounded-md p-8 w-full max-w-md space-y-6" action="">
+      <div className="flex flex-grow sm:items-center justify-center">
+        <form className="rounded-md p-8 w-full max-w-md space-y-6" action="">
           <div>
             <label htmlFor="email" className="block text-xl mb-2">
               What's your email?
@@ -46,19 +46,35 @@ const Login = (): JSX.Element => {
               onBlur={() => setPasswordFocused(false)}
             />
           </div>
-
           <button
             type="submit"
             className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-800 transition-colors"
           >
             Login
           </button>
+          <div className="text-center">
+            <Link
+              to="/signup"
+              className="text-blue-600 hover:underline text-sm"
+            >
+              New here? Create an account
+            </Link>
+          </div>
 
           <p className="text-xs text-gray-500 mt-4">
             By proceeding, you consent to get calls, WhatsApp, or SMS/RCS
             messages, including by automated means, from Uber and its affiliates
             to the number provided.
           </p>
+
+          <div className="mt-4 text-center">
+            <Link
+              to="/captain-login"
+              className="inline-block w-full bg-gray-300 text-black px-4 py-2 rounded-md hover:bg-gray-400 transition-colors"
+            >
+              Sign in as Captain
+            </Link>
+          </div>
         </form>
       </div>
     </div>
