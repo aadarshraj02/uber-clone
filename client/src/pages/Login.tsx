@@ -1,22 +1,31 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UserDataContext } from "../context/UserContext";
+import useLogin from "../hooks/useUserLogin";
 
 const Login = (): JSX.Element => {
-  const [emailFocused, setEmailFocused] = useState(false);
-  const [passwordFocused, setPasswordFocused] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userData, setUserData] = useState({});
+  const [emailFocused, setEmailFocused] = useState(false);
+  const [passwordFocused, setPasswordFocused] = useState(false);
+  
+  const { login, loading, error } = useLogin();
+  const { setUser } = useContext(UserDataContext);
+  const navigate = useNavigate();
 
-  const submitHandler = (e: any) => {
+  const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    setUserData({
-      email: email,
-      password: password,
-    });
-    console.log(userData);
-    setEmail("");
-    setPassword("");
+
+    try {
+      const data = await login({ email, password });
+      setUser(data.user); 
+      localStorage.setItem("token", data.token);
+      navigate("/home"); 
+      setEmail("");
+      setPassword("");
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -68,10 +77,14 @@ const Login = (): JSX.Element => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <button className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-800 transition-colors">
-              Login
+            <button
+              className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-800 transition-colors"
+              disabled={loading}
+            >
+              {loading ? "Logging in..." : "Login"}
             </button>
           </form>
+          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
           <div className="rounded-md px-8 space-y-4">
             <div className="text-center">
               <Link
