@@ -1,5 +1,5 @@
-const userContext = () => {
-  return <div>userContext</div>;
+const UserContext = () => {
+  return <div>s</div>;
 };
 
-export default userContext;
+export default UserContext;
