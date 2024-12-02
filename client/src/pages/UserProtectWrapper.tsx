@@ -1,9 +1,12 @@
-import React from 'react'
+import { useNavigate } from "react-router-dom";
 
-const UserProtectWrapper = () => {
-  return (
-    <div>UserProtectWrapper</div>
-  )
-}
+const UserProtectWrapper = ({ children }: any) => {
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
-export default UserProtectWrapper
+  if (!token) navigate("/login");
+
+  return <div>{children}</div>;
+};
+
+export default UserProtectWrapper;
