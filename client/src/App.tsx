@@ -6,7 +6,7 @@ import CaptainSignup from "./pages/CaptainSignup";
 import Start from "./pages/Start";
 import Home from "./pages/Home";
 import UserProtectWrapper from "./pages/UserProtectWrapper";
-import Userlogout from "./components/Userlogout";
+import Userlogout from "./pages/Userlogout";
 
 const App = (): JSX.Element => {
   return (
